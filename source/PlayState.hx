@@ -3638,9 +3638,6 @@ class PlayState extends MusicBeatState
 					releaseArray = [false, false, false, false];
 				}*/
 
-				//#if !cpp
-				nonCpp = true;
-				//#end
 
 				var anas:Array<Ana> = [null,null,null,null];
 
@@ -3659,7 +3656,7 @@ class PlayState extends MusicBeatState
 				}
 
 		        //i know this is really stupid to do but this is what i only can do (minor grammar mistake i lose)
-				if ((KeyBinds.gamepad && !FlxG.keys.justPressed.ANY) || nonCpp)
+				if ((KeyBinds.gamepad && !FlxG.keys.justPressed.ANY))
 				{
 					boyfriend.holdTimer = 0;
 			
