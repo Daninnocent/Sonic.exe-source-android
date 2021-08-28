@@ -16,7 +16,7 @@ class MP4Handler
 	public static var netStream:NetStream;
 	public static var finishCallback:FlxState;
 
-	public static var vlcBitmap:VlcBitmap;
+	//public static var vlcBitmap:VlcBitmap;
 
 	public function new()
 	{
@@ -54,7 +54,6 @@ class MP4Handler
 		nc.addEventListener("netStatus", netConnection_onNetStatus);
 
 		netStream.play(path);
-		#end
 	}
 
 	function checkFile(fileName:String):String
@@ -79,7 +78,7 @@ class MP4Handler
 
 	public function onVLCComplete()
 	{
-		vlcBitmap.stop();
+		//vlcBitmap.stop();
 
 		// Clean player, just in case! Actually no.
 
@@ -101,7 +100,7 @@ class MP4Handler
 
 	function update(e:Event)
 	{
-		vlcBitmap.volume = FlxG.sound.volume; // shitty volume fix
+		//vlcBitmap.volume = FlxG.sound.volume; // shitty volume fix
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////

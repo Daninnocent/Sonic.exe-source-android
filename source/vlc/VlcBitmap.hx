@@ -2,6 +2,7 @@ package vlc;
 
 import flixel.FlxG;
 import openfl.system.Capabilities;
+#if (cpp && !mobile)
 import cpp.NativeArray;
 import cpp.UInt8;
 import haxe.ValueException;
@@ -20,9 +21,9 @@ import vlc.LibVLC;
  * ...
  * @author Tommy S
  */
-
+#if (cpp && !mobile)
 @:cppFileCode('#include "LibVLC.cpp"')
-
+#end
 class VlcBitmap extends Bitmap
 {
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -63,8 +64,9 @@ class VlcBitmap extends Bitmap
 	// Declarations
 	//-----------------------------------------------------------------------------------
 	var bufferMem:Array<UInt8>;
-
+	#if (cpp && !mobile)
 	var libvlc:LibVLC;
+	#end
 
 	// ===================================================================================
 	// Variables
@@ -88,7 +90,9 @@ class VlcBitmap extends Bitmap
 	{
 		super(null, null, true);
 
+		#if (cpp && !mobile)
 		init();
+		#end
 	}
 
 	function mThread()
@@ -100,7 +104,9 @@ class VlcBitmap extends Bitmap
 
 	function init()
 	{
+		#if (cpp && !mobile)
 		addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		#end
 	}
 
 	function onAddedToStage(e:Event):Void
@@ -116,6 +122,7 @@ class VlcBitmap extends Bitmap
 
 	public function play(?source:String)
 	{
+		#if (cpp && !mobile)
 		libvlc.setRepeat(repeat);
 
 		if (!inWindow)
@@ -137,10 +144,12 @@ class VlcBitmap extends Bitmap
 
 		if (onPlay != null)
 			onPlay();
+		#end
 	}
 
 	public function stop()
 	{
+		#if (cpp && !mobile)
 		isPlaying = false;
 		libvlc.stop();
 		// if (disposeOnStop)
@@ -148,51 +157,67 @@ class VlcBitmap extends Bitmap
 
 		if (onStop != null)
 			onStop();
+		#end
 	}
 
 	public function pause()
 	{
+		#if (cpp && !mobile)
 		isPlaying = false;
 		libvlc.pause();
 		if (onPause != null)
 			onPause();
+		#end
 	}
 
 	public function resume()
 	{
+		#if (cpp && !mobile)
 		isPlaying = true;
 		libvlc.resume();
 		if (onResume != null)
 			onResume();
+		#end
 	}
 
 	public function seek(seekTotime:Float)
 	{
+		#if (cpp && !mobile)
 		libvlc.setPosition(seekTotime);
 		if (onSeek != null)
 			onSeek();
+		#end
 	}
 
 	public function getFPS():Float
 	{
+		#if (cpp && !mobile)
 		if (libvlc != null && initComplete)
 			return libvlc.getFPS();
 		else
 			return 0;
+		#else
+		return 0;
+		#end
 	}
 
 	public function getTime():Int
 	{
+		#if (cpp && !mobile)
 		if (libvlc != null && initComplete)
 			return libvlc.getTime();
 		else
 			return 0;
+		#else
+		return 0;
+		#end
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	function checkFlags()
 	{
+		#if (cpp && !mobile)
 		if (!isDisposed)
 		{
 			if (untyped __cpp__('libvlc->flags[1]') == 1)
@@ -254,6 +279,7 @@ class VlcBitmap extends Bitmap
 				statusOnBackward();
 			}
 		}
+		#end
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -268,6 +294,7 @@ class VlcBitmap extends Bitmap
 
 	function videoInitComplete()
 	{
+		#if (cpp && !mobile)
 		videoWidth = libvlc.getWidth();
 		videoHeight = libvlc.getHeight();
 
@@ -311,14 +338,17 @@ class VlcBitmap extends Bitmap
 
 		if (onVideoReady != null)
 			onVideoReady();
+		#end
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	function vLoop(e)
 	{
+		#if (cpp && !mobile)
 		checkFlags();
 		render();
+		#end
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -331,6 +361,7 @@ class VlcBitmap extends Bitmap
 		{
 			oldTime = cTime;
 
+			#if (cpp && !mobile)
 			// if (isPlaying && texture != null) // (Stage3D)
 			if (isPlaying)
 			{
@@ -356,6 +387,7 @@ class VlcBitmap extends Bitmap
 					throw new Error("render broke xd");
 				}
 			}
+			#end
 		}
 	}
 
@@ -363,16 +395,22 @@ class VlcBitmap extends Bitmap
 
 	function setVolume(vol:Float)
 	{
+		#if (cpp && !mobile)
 		if (libvlc != null && initComplete)
 			libvlc.setVolume(vol * 100);
+		#end
 	}
 
 	public function getVolume():Float
 	{
+		#if (cpp && !mobile)
 		if (libvlc != null && initComplete)
 			return libvlc.getVolume();
 		else
 			return 0;
+		#else
+		return 0;
+		#end
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -508,7 +546,9 @@ class VlcBitmap extends Bitmap
 
 	public function dispose()
 	{
+		#if (cpp && !mobile)
 		libvlc.stop();
+		#end
 
 		stage.removeEventListener(Event.ENTER_FRAME, vLoop);
 
@@ -530,12 +570,15 @@ class VlcBitmap extends Bitmap
 		bufferMem = null;
 		isDisposed = true;
 
+		#if (cpp && !mobile)
 		while (!isPlaying && !isDisposed)
 		{
 			libvlc.dispose();
 			libvlc = null;
 		}
+		#end
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
 }
+#end
