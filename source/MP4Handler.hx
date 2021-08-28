@@ -55,32 +55,6 @@ class MP4Handler
 		nc.addEventListener("netStatus", netConnection_onNetStatus);
 
 		netStream.play(path);
-		#else
-		finishCallback = callback;
-
-		vlcBitmap = new VlcBitmap();
-		vlcBitmap.set_height(FlxG.stage.stageHeight);
-		vlcBitmap.set_width(FlxG.stage.stageHeight * (16 / 9));
-
-		trace("Setting width to " + FlxG.stage.stageHeight * (16 / 9));
-		trace("Setting height to " + FlxG.stage.stageHeight);
-
-		vlcBitmap.onVideoReady = onVLCVideoReady;
-		vlcBitmap.onComplete = onVLCComplete;
-		vlcBitmap.onError = onVLCError;
-
-		FlxG.stage.addEventListener(Event.ENTER_FRAME, update);
-
-		if (repeat)
-			vlcBitmap.repeat = -1;
-		else
-			vlcBitmap.repeat = 0;
-
-		vlcBitmap.inWindow = isWindow;
-		vlcBitmap.fullscreen = isFullscreen;
-
-		FlxG.addChildBelowMouse(vlcBitmap);
-		vlcBitmap.play(checkFile(path));
 		#end
 	}
 
