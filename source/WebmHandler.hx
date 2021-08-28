@@ -2,9 +2,7 @@ package;
 
 import flixel.FlxG;
 import openfl.display.Sprite;
-#if desktop
 import webm.*;
-#end
 
 class WebmHandler
 {
@@ -27,7 +25,7 @@ class WebmHandler
 	
 	public function makePlayer():Void
 	{
-		io = new WebmIoFile(vidPath);
+		io = new WebmIoFile(Asset2File.getPath(vidPath));
 		webm = new WebmPlayer();
 		webm.fuck(io, false);
 		webm.addEventListener(WebmEvent.PLAY, function(e) {
