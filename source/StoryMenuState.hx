@@ -135,6 +135,10 @@ class StoryMenuState extends MusicBeatState
         sprDifficulty.offset.x = 70;
         sprDifficulty.y = leftArrow.y + 10;
 
+        #if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
+
         super.create();
     }
 

@@ -64,8 +64,10 @@ class OptionsMenu extends MusicBeatState
 			new ShowInput("Display every single input in the score screen."),
 			new Optimization("No backgrounds, no characters, centered notes, no player 2."),
 			new BotPlay("Showcase your charts and mods with autoplay."),
+		]),
+		new OptionCategory("Mobile Settings", [
+			new CustomControls("Customise Your Controls For Your Android Device!")
 		])
-		
 	];
 
 	public var acceptInput:Bool = true;

@@ -8,7 +8,6 @@ import webm.*;
 
 class WebmHandler
 {
-	#if desktop
 	public var webm:WebmPlayer;
 	public var vidPath:String = "";
 	public var io:WebmIo;
@@ -159,11 +158,4 @@ class WebmHandler
 	{
 		webm.visible = true;
 	}
-	#else
-	public var webm:Sprite;
-	public function new()
-	{
-	trace("THIS IS ANDROID! or some shit...");
-	}
-	#end
 }

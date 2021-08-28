@@ -24,6 +24,7 @@ import lime.utils.Assets;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.input.FlxKeyManager;
+import ui.FlxVirtualPad;
 
 
 using StringTools;
@@ -47,6 +48,8 @@ class ResultsScreen extends FlxSubState
 
     public var ranking:String;
     public var accuracy:String;
+
+    var virtualpad:FlxVirtualPad;
 
 	override function create()
 	{	
@@ -159,6 +162,9 @@ class ResultsScreen extends FlxSubState
 
         cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
+        virtualpad = new FlxVirtualPad(NONE, A);
+		add(virtualpad);
+
 		super.create();
 	}
 
@@ -172,7 +178,7 @@ class ResultsScreen extends FlxSubState
 
         // keybinds
 
-        if (PlayerSettings.player1.controls.ACCEPT)
+        if (virtualpad.buttonA.justPressed)
         {
             music.fadeOut(0.3);
             

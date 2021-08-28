@@ -125,7 +125,10 @@ class SoundTestMenu extends MusicBeatState
 
 			add(whiteshit);
 
-			
+			#if mobileC
+			addVirtualPad(FULL, A_B);
+			#end	
+		
         }
 
 	function changeNumber(selection:Int) 
@@ -358,17 +361,17 @@ class SoundTestMenu extends MusicBeatState
 		
 	override public function update(elapsed:Float)
 		{
-			if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.A || FlxG.keys.justPressed.D) if (woahmanstopspammin) funnymonke = !funnymonke;
+			if (controls.RIGHT_P || controls.LEFT_P || FlxG.keys.justPressed.A || FlxG.keys.justPressed.D) if (woahmanstopspammin) funnymonke = !funnymonke;
 
-			if (FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.S) if (woahmanstopspammin) changeNumber(1);
+			if (controls.DOWN_P || FlxG.keys.justPressed.S) if (woahmanstopspammin) changeNumber(1);
 
-			if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.W) if (woahmanstopspammin) changeNumber(-1);
+			if (controls.UP_P|| FlxG.keys.justPressed.W) if (woahmanstopspammin) changeNumber(-1);
 
-			if (FlxG.keys.justPressed.ENTER && woahmanstopspammin) doTheThing(pcmValue, daValue);
+			if (controls.ACCEPT && woahmanstopspammin) doTheThing(pcmValue, daValue);
 
-			if (FlxG.keys.justPressed.ENTER && !woahmanstopspammin && incameo) LoadingState.loadAndSwitchState(new SoundTestMenu());
+			if (controls.ACCEPT && !woahmanstopspammin && incameo) LoadingState.loadAndSwitchState(new SoundTestMenu());
 
-			if (FlxG.keys.justPressed.ESCAPE && woahmanstopspammin && !incameo) LoadingState.loadAndSwitchState(new MainMenuState());
+			if (controls.BACK && woahmanstopspammin && !incameo) LoadingState.loadAndSwitchState(new MainMenuState());
 
 			if (funnymonke)
 			{

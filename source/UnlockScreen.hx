@@ -39,6 +39,10 @@ class UnlockScreen extends MusicBeatState
             FlxTween.tween(image, {alpha: 1}, 1);
         });
 
+        #if mobileC
+		addVirtualPad(NONE, A);
+		#end
+
         super.create();
     }
 

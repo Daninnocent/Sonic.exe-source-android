@@ -16,9 +16,7 @@ class MP4Handler
 	public static var netStream:NetStream;
 	public static var finishCallback:FlxState;
 
-	#if desktop
 	public static var vlcBitmap:VlcBitmap;
-	#end
 
 	public function new()
 	{
@@ -86,7 +84,6 @@ class MP4Handler
 		#end
 	}
 
-	#if desktop
 	function checkFile(fileName:String):String
 	{
 		var pDir = "";
@@ -133,7 +130,6 @@ class MP4Handler
 	{
 		vlcBitmap.volume = FlxG.sound.volume; // shitty volume fix
 	}
-	#end
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
